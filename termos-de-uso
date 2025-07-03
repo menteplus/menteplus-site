@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Termos de Uso - MentePlus</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+      color: #333;
+      line-height: 1.6;
+      background: #f9fafb;
+    }
+    h1, h2 {
+      color: #2563eb;
+    }
+    a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    footer {
+      margin-top: 60px;
+      font-size: 0.9rem;
+      color: #777;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Termos de Uso</h1>
+
+  <p>Última atualização: 3 de julho de 2025</p>
+
+  <p>Bem-vindo ao site MentePlus. Ao acessar e utilizar nossos serviços, você concorda com os seguintes termos e condições:</p>
+
+  <h2>1. Uso do site</h2>
+  <p>Você concorda em usar o site apenas para fins legais e de acordo com estas condições.</p>
+
+  <h2>2. Propriedade intelectual</h2>
+  <p>Todo conteúdo, marcas e materiais disponíveis no site são propriedade da MentePlus e protegidos por direitos autorais.</p>
+
+  <h2>3. Responsabilidades do usuário</h2>
+  <p>Você é responsável por manter a confidencialidade das suas informações e pelo uso adequado dos serviços.</p>
+
+  <h2>4. Isenção de responsabilidade</h2>
+  <p>O site é fornecido “no estado em que se encontra”, e a MentePlus não se responsabiliza por danos decorrentes do uso do site.</p>
+
+  <h2>5. Alterações nos termos</h2>
+  <p>Podemos modificar estes termos a qualquer momento. Recomendamos revisar esta página periodicamente.</p>
+
+  <h2>6. Contato</h2>
+  <p>Para dúvidas, entre em contato pelo e-mail: <a href="mailto:contato@menteplus.com">contato@menteplus.com</a>.</p>
+
+  <footer>
+    <p>&copy; 2025 MentePlus. Todos os direitos reservados.</p>
+  </footer>
+</body>
+</html>
