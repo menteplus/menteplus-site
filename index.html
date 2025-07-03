@@ -1,13 +1,447 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Mente+</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div id="root">Mente+ App carregando...</div>
-    <script src="app.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MentePlus App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom right, #bfdbfe, #fef3c7, white);
+      margin: 0; padding: 16px 24px 120px 24px;
+      min-height: 100vh;
+    }
+    .fixed-top-left {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      z-index: 1000;
+    }
+    button {
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      font-size: 24px;
+    }
+    .menu {
+      position: fixed;
+      top: 0; left: 0;
+      height: 100vh; width: 250px;
+      background: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.15);
+      padding: 20px;
+      z-index: 999;
+      overflow-y: auto;
+    }
+    .menu h2 {
+      color: #2563eb;
+      margin-bottom: 20px;
+    }
+    .menu ul {
+      list-style: none;
+      padding: 0;
+      color: #4b5563;
+    }
+    .menu ul li {
+      margin: 12px 0;
+      font-size: 18px;
+    }
+    header {
+      text-align: center;
+      padding: 60px 0 30px 0;
+    }
+    header img.avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      margin-bottom: 8px;
+      object-fit: cover;
+    }
+    header h1 {
+      color: #2563eb;
+      font-size: 2.5rem;
+      margin: 0;
+    }
+    header p {
+      color: #4b5563;
+      margin-top: 6px;
+      font-size: 1rem;
+    }
+    .inputs {
+      margin-top: 12px;
+    }
+    .inputs input {
+      padding: 8px;
+      margin: 4px 6px;
+      border-radius: 6px;
+      border: 1px solid #d1d5db;
+      width: 180px;
+      font-size: 1rem;
+    }
+    main {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+    .card {
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 20px;
+      flex: 1 1 280px;
+      max-width: 300px;
+      text-align: center;
+      cursor: pointer;
+      transition: box-shadow 0.3s ease;
+    }
+    .card:hover {
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    .card-icon {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+    .autoconhecimento { color: #facc15; } /* yellow */
+    .controle { color: #ec4899; } /* pink */
+    .proposito { color: #8b5cf6; } /* purple */
+    .card h2 {
+      color: #2563eb;
+      font-size: 1.2rem;
+      margin: 0 0 8px 0;
+    }
+    .card p {
+      color: #6b7280;
+      font-size: 0.9rem;
+      margin: 0 0 8px 0;
+    }
+    .card ul {
+      text-align: left;
+      font-size: 0.85rem;
+      color: #4b5563;
+      padding-left: 16px;
+      margin: 8px 0 0 0;
+    }
+    section {
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 24px;
+      max-width: 720px;
+      margin: 0 auto 120px auto;
+    }
+    section h2 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #1e40af;
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+    }
+    section p, section ul {
+      font-size: 1rem;
+      color: #374151;
+      margin: 8px 0;
+    }
+    section ul {
+      padding-left: 20px;
+      list-style-type: disc;
+    }
+    .goal-inputs input {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 6px;
+      border: 1px solid #d1d5db;
+      font-size: 1rem;
+    }
+    .btn-primary {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 8px;
+      width: 100%;
+    }
+    .btn-primary:hover {
+      background-color: #1d4ed8;
+    }
+    .metas-list {
+      margin-top: 20px;
+    }
+    .meta-item {
+      background: #eff6ff;
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 12px;
+      box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
+    }
+    .progress-bar {
+      background: #d1d5db;
+      border-radius: 12px;
+      height: 12px;
+      width: 100%;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+    .progress-bar-inner {
+      height: 12px;
+      background: #2563eb;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    .meta-buttons {
+      margin-top: 10px;
+      display: flex;
+      gap: 8px;
+    }
+    .btn-success, .btn-outline {
+      flex: 1;
+      padding: 8px;
+      font-size: 0.9rem;
+      border-radius: 6px;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-success {
+      background-color: #16a34a;
+      color: white;
+    }
+    .btn-success:hover {
+      background-color: #15803d;
+    }
+    .btn-outline {
+      background: white;
+      border: 1.5px solid #2563eb;
+      color: #2563eb;
+    }
+    .btn-outline:hover {
+      background-color: #e0e7ff;
+    }
+    footer {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: white;
+      box-shadow: inset 0 1px 0 rgba(0,0,0,0.1);
+      padding: 10px 0;
+      display: flex;
+      justify-content: space-around;
+      border-top-left-radius: 24px;
+      border-top-right-radius: 24px;
+    }
+    footer button {
+      background: transparent;
+      border: none;
+      color: #2563eb;
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="fixed-top-left">
+    <button id="btn-menu" aria-label="Abrir menu">☰</button>
+  </div>
+
+  <nav id="menu" class="menu" style="display:none;">
+    <h2>Menu</h2>
+    <ul>
+      <li>🏠 Início</li>
+      <li>🧠 Autoconhecimento</li>
+      <li>🎯 Metas</li>
+      <li>🤖 Mentor</li>
+      <li>📞 Ajuda</li>
+    </ul>
+  </nav>
+
+  <header>
+    <img src="" alt="Avatar" class="avatar" id="avatarImg" style="display:none" />
+    <h1 id="greeting">Olá, você! 💛</h1>
+    <p>Vamos evoluir juntos hoje?</p>
+    <div class="inputs">
+      <input type="text" id="inputUsuario" placeholder="Digite seu nome" />
+      <input type="text" id="inputAvatar" placeholder="URL da sua foto" />
+    </div>
+  </header>
+
+  <main>
+    <div class="card autoconhecimento" tabindex="0">
+      <div class="card-icon">😊</div>
+      <h2>Autoconhecimento</h2>
+      <p>Descubra quem você é e fortaleça sua identidade.</p>
+    </div>
+    <div class="card controle" tabindex="0">
+      <div class="card-icon">❤️</div>
+      <h2>Controle Emocional</h2>
+      <p>Aprenda a lidar com sentimentos difíceis e manter o equilíbrio.</p>
+      <ul>
+        <li>Respiração consciente</li>
+        <li>Identificação de gatilhos</li>
+        <li>Jornada das emoções</li>
+      </ul>
+    </div>
+    <div class="card proposito" tabindex="0">
+      <div class="card-icon">🧠</div>
+      <h2>Propósito de Vida</h2>
+      <p>Descubra seus talentos e crie seu próprio caminho.</p>
+      <ul>
+        <li>Mapa de valores</li>
+        <li>Sonhos e metas</li>
+        <li>Plano de ação pessoal</li>
+      </ul>
+    </div>
+  </main>
+
+  <section>
+    <h2>🎯 Criação de Metas (GOAL)</h2>
+    <p>Vamos criar uma meta poderosa juntos com base na metodologia <strong>GOAL</strong>:</p>
+    <ul>
+      <li><strong>G - Grande visão:</strong> O que você realmente quer conquistar?</li>
+      <li><strong>O - Objetivo específico:</strong> O que exatamente você quer fazer?</li>
+      <li><strong>A - Ação prática:</strong> Quais passos reais você pode tomar?</li>
+      <li><strong>L - Limite de tempo:</strong> Quando você quer alcançar isso?</li>
+    </ul>
+    <div class="goal-inputs">
+      <input type="text" id="inputG" placeholder="Sua Grande Visão..." />
+      <input type="text" id="inputO" placeholder="Objetivo específico..." />
+      <input type="text" id="inputA" placeholder="Ações práticas..." />
+      <input type="text" id="inputL" placeholder="Limite de tempo..." />
+      <button class="btn-primary" id="btnSalvarMeta">Salvar Meta</button>
+    </div>
+
+    <div class="metas-list" id="metasList"></div>
+  </section>
+
+  <footer>
+    <button><span>📚</span><span>Trilhas</span></button>
+    <button><span>😊</span><span>Mentor</span></button>
+    <button><span>🧠</span><span>Progresso</span></button>
+    <button><span>❤️</span><span>Ajuda</span></button>
+  </footer>
+
+  <script>
+    // Controle do menu
+    const btnMenu = document.getElementById('btn-menu');
+    const menu = document.getElementById('menu');
+    btnMenu.addEventListener('click', () => {
+      menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+    });
+
+    // Estado do app
+    let metas = [];
+
+    // Inputs e elementos
+    const inputUsuario = document.getElementById('inputUsuario');
+    const inputAvatar = document.getElementById('inputAvatar');
+    const avatarImg = document.getElementById('avatarImg');
+    const greeting = document.getElementById('greeting');
+
+    const inputG = document.getElementById('inputG');
+    const inputO = document.getElementById('inputO');
+    const inputA = document.getElementById('inputA');
+    const inputL = document.getElementById('inputL');
+    const btnSalvarMeta = document.getElementById('btnSalvarMeta');
+    const metasList = document.getElementById('metasList');
+
+    // Atualiza saudação e avatar
+    function updateUserInfo() {
+      const nome = inputUsuario.value.trim();
+      const avatarUrl = inputAvatar.value.trim();
+      greeting.textContent = `Olá, ${nome || 'você'}! 💛`;
+
+      if (avatarUrl) {
+        avatarImg.src = avatarUrl;
+        avatarImg.style.display = 'inline-block';
+      } else {
+        avatarImg.style.display = 'none';
+      }
+    }
+    inputUsuario.addEventListener('input', updateUserInfo);
+    inputAvatar.addEventListener('input', updateUserInfo);
+
+    // Renderiza as metas
+    function renderMetas() {
+      metasList.innerHTML = '';
+      if(metas.length === 0) return;
+
+      metas.forEach((meta, index) => {
+        const div = document.createElement('div');
+        div.className = 'meta-item';
+
+        div.innerHTML = `
+          <p><strong>Visão:</strong> ${meta.g}</p>
+          <p><strong>Objetivo:</strong> ${meta.o}</p>
+          <p><strong>Ação:</strong> ${meta.a}</p>
+          <p><strong>Prazo:</strong> ${meta.l}</p>
+          <div class="progress-bar"><div class="progress-bar-inner" style="width: ${meta.progresso}%;"></div></div>
+          <div class="meta-buttons">
+            <button class="btn-success" data-index="${index}">Avançar</button>
+            <button class="btn-outline" data-index="${index}">Remover</button>
+          </div>
+        `;
+
+        metasList.appendChild(div);
+      });
+
+      // Botões de Avançar e Remover
+      metasList.querySelectorAll('.btn-success').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const i = parseInt(btn.getAttribute('data-index'));
+          metas[i].progresso = Math.min(100, metas[i].progresso + 25);
+          if (metas[i].progresso >= 100) {
+            alert('🎉 Parabéns! Você concluiu sua meta! Continue evoluindo!');
+          }
+          renderMetas();
+        });
+      });
+      metasList.querySelectorAll('.btn-outline').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const i = parseInt(btn.getAttribute('data-index'));
+          metas.splice(i, 1);
+          renderMetas();
+        });
+      });
+    }
+
+    // Salvar nova meta
+    btnSalvarMeta.addEventListener('click', () => {
+      if (metas.length >= 3) {
+        alert('Você pode criar no máximo 3 metas.');
+        return;
+      }
+      const g = inputG.value.trim();
+      const o = inputO.value.trim();
+      const a = inputA.value.trim();
+      const l = inputL.value.trim();
+
+      if(!g || !o || !a || !l) {
+        alert('Por favor, preencha todos os campos da meta.');
+        return;
+      }
+
+      metas.push({ g, o, a, l, progresso: 0 });
+
+      // Limpa inputs
+      inputG.value = '';
+      inputO.value = '';
+      inputA.value = '';
+      inputL.value = '';
+
+      renderMetas();
+    });
+
+    // Inicializa
+    updateUserInfo();
+  </script>
+</body>
 </html>
