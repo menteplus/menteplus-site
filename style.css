@@ -1,0 +1,8 @@
+
+body {
+  font-family: sans-serif;
+  background: linear-gradient(to bottom right, #ebf8ff, #fff9db);
+  margin: 0;
+  padding: 2rem;
+  color: #1a202c;
+}
